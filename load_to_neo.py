@@ -7,16 +7,6 @@ import common_parse
 URI = "bolt://localhost:7687"
 DRIVER = GraphDatabase.driver(URI, auth=("neo4j", "12345"))
 
-# def print_friends_of(tx, name):
-#  for record in tx.run("MATCH (a:Person)-[:KNOWS]->(f) "
-#                        "WHERE a.name = {name} "
-#                        "RETURN f.name", name=name):
-#      print(record["f.name"])
-
-
-# Delete all the stuff
-# MATCH (n) DETACH DELETE n
-
 def get_node_name(file_name) -> Optional[str]:
     match = re.search("node_([a-zA-Z]+)[.]csv", file_name)
 
@@ -57,3 +47,8 @@ def load_csv_node(file_name):
         session.close()
 
 load_csv_node("dump/node_User.csv")
+load_csv_node("dump/node_Hashtag.csv")
+load_csv_node("dump/node_Troll.csv")
+load_csv_node("dump/node_Tweet.csv")
+load_csv_node("dump/node_URL.csv")
+load_csv_node("dump/node_Source.csv")
