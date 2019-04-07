@@ -1,7 +1,6 @@
 # at first install the neo4j connect module
 import csv
 import re
-import json
 from typing import Optional
 from neo4j import GraphDatabase
 
