@@ -1,1 +1,0 @@
-WEIRD_CHAR = '\xfe'
