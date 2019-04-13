@@ -86,28 +86,16 @@ def load_relations(node_from_name, node_from_key, node_to_name, node_to_key, rel
 def load_relations_auto(node_from_name, node_to_name, relationship_name):
     load_relations(node_from_name, KEYS[node_from_name], node_to_name, KEYS[node_to_name], relationship_name)
 
+load_node("Tweet")
+load_node("User")
+load_node("Hashtag")
+load_node("Source")
+load_node("URL")
 
-# load_node("Tweet")
-# load_node("User")
-# load_node("Hashtag")
-# load_node("Source")
-# load_node("URL")
-
-
-# load_relations_auto("Tweet", "Hashtag", "HAS_TAG")
-# load_relations_auto("Tweet", "Tweet", "IN_REPLY_TO")
-# load_relations_auto("Tweet", "User", "MENTIONS")
-# load_relations_auto("User", "Tweet", "POSTED")
-#load_relations_auto("Tweet", "Tweet", "RETWEETED")
-#load_relations_auto("Tweet", "URL", "HAS_LINK")
+load_relations_auto("Tweet", "Hashtag", "HAS_TAG")
+load_relations_auto("Tweet", "Tweet", "IN_REPLY_TO")
+load_relations_auto("Tweet", "User", "MENTIONS")
+load_relations_auto("User", "Tweet", "POSTED")
+load_relations_auto("Tweet", "Tweet", "RETWEETED")
+load_relations_auto("Tweet", "URL", "HAS_LINK")
 load_relations_auto("Tweet", "Source", "POSTED_VIA")
-
-# HAS_LINK - Tweet -> URL
-# HAS_TAG - Tweet -> Tag
-# IN_REPLY_TO - Tweet -> Tweet
-# MENTIONS - Tweet -> User
-# POSTED - User -> Tweet
-# POSTED_VIA - Tweet -> Source
-# RETWEETED - Tweet -> Tweet
-
-
