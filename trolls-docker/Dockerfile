@@ -12,6 +12,8 @@ ENV GRAPH_URI https://github.com/neo4j-contrib/neo4j-graph-algorithms/releases/d
 RUN wget $APOC_URI && mv apoc-${APOC_VERSION}-all.jar plugins/apoc-${APOC_VERSION}-all.jar
 RUN wget $GRAPH_URI && mv graph-algorithms-algo-${GRAPH_VERSION}.jar plugins/graph-algorithms-algo-${GRAPH_VERSION}.jar
 
+COPY ./volumes/data/ ./data/
+
 EXPOSE 7474 7473 7687
 
 CMD ["neo4j"]
