@@ -1,4 +1,4 @@
-FROM neo4j:3.5.3
+FROM neo4j:3.5.4
 ENV NEO4J_AUTH=neo4j/12345
 
 LABEL maintainer="Boris yartsev"
