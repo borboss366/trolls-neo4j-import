@@ -3,9 +3,7 @@ import requests
 import json
 
 tweet_arr = []
-with open('available_urls.csv') as f:
-    #with open('tweets_2.csv', 'w') as tweet_file:
-    #    writer  = csv.writer(tweet_file)
+with open('./data/available_urls.csv') as f:
     for l in f:
         page = requests.get(l).text
         soup = BeautifulSoup(page, 'html.parser')
@@ -88,5 +86,5 @@ with open('available_urls.csv') as f:
         if not tweets:
             print("NO TWEETS FOR " + l)                
 
-with open('tweets_full.json', 'w') as f:
+with open('./data/tweets_full.json', 'w') as f:
     json.dump(tweet_arr, f, ensure_ascii=False, sort_keys=True, indent=4)

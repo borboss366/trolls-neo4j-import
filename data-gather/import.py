@@ -2,7 +2,7 @@ from neo4j import GraphDatabase
 import json
 
 driver = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "12345"))
-with open('tweets_full.json') as json_data:
+with open('./data/tweets_full.json') as json_data:
     tweetArr = json.load(json_data)
 
 import_query = '''

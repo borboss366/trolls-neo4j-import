@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import csv
 import requests
 
-# testing for new version
-
 url = "http://web.archive.org/web/20150603004258/https://twitter.com/AlwaysHungryBae"
 page = requests.get(url).text
 soup = BeautifulSoup(page, 'html.parser')
@@ -47,3 +45,5 @@ for t in tweets:
         tweet_obj['links'].append(li_obj)
 
     print(tweet_obj)
+
+    
