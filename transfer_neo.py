@@ -3,8 +3,9 @@ from neo4j import GraphDatabase
 URI_LOCAL = "bolt://localhost:7687"
 DRIVER_LOCAL = GraphDatabase.driver(URI_LOCAL, auth=("neo4j", "12345"))
 
-URI_REMOTE = "bolt://52.3.253.48:37879"
-DRIVER_REMOTE = GraphDatabase.driver(URI_REMOTE, auth=("neo4j", "tail-analyses-experiences"))
+# replace with bolt endpoint address here
+URI_REMOTE = "bolt://XXX:XXX"
+DRIVER_REMOTE = GraphDatabase.driver(URI_REMOTE, auth=("neo4j", "XXX"))
 
 KEYS = {
     "Hashtag": "tag",
