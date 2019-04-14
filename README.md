@@ -25,4 +25,5 @@ sudo docker run -d -p 7474:7474 -p 7687:7687 borisyartsev9taxify/neo4j-stuff:tro
 ```
 
 # Accessing # 
+This link opens the web interface for the database
 [http://localhost:7474](http://localhost:7474 "Graph data set")
