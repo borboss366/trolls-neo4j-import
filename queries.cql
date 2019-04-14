@@ -1,6 +1,8 @@
 // delete everything
 MATCH (n) DETACH DELETE n
 
+MATCH (u:User { screen_name: "TEN_GOP" }) RETURN u;
+
 // the TEN_GOP tweets
 // https://www.buzzfeednews.com/article/kevincollier/twitter-was-warned-repeatedly-about-this-fake-account-run#.javj266Xk
 MATCH (u:User)-[:POSTED]->(t:Tweet)-[:HAS_TAG]->(h:Hashtag)
