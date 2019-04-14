@@ -45,5 +45,3 @@ for t in tweets:
         tweet_obj['links'].append(li_obj)
 
     print(tweet_obj)
-
-    
