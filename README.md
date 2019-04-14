@@ -1,6 +1,6 @@
 ## Docker setup ##
 
-
+Pulls docker image 
 ```sh
 sudo docker pull borisyartsev9taxify/neo4j-stuff:neo4j-clean-1
 ```
