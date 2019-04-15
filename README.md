@@ -1,4 +1,8 @@
-# Setup #
+# Trolls archive #
+
+## Info ##
+Uses scripts from this article
+https://www.lyonwj.com/2017/11/12/scraping-russian-twitter-trolls-python-neo4j/
 
 ## Docker ##
 
