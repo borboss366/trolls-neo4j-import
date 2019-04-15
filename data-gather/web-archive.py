@@ -1,4 +1,6 @@
 import requests
+import os
+
 items = []
 initial = "http://archive.org/wayback/available"
 
@@ -9,6 +11,8 @@ with open('names.csv') as f:
         d = r.json()
         print(d)
         items.append(d)
+
+os.makedirs("./data")
 
 with open('./data/available_urls.csv', 'w') as f:
     for item in items:
