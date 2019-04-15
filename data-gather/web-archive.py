@@ -12,7 +12,10 @@ with open('names.csv') as f:
         print(d)
         items.append(d)
 
-os.makedirs("./data")
+try:
+    os.makedirs("./data")
+except:
+    print("")
 
 with open('./data/available_urls.csv', 'w') as f:
     for item in items:
