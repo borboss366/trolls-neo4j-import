@@ -20,6 +20,12 @@ MATCH (h1:Hashtag)<-[:HAS_TAG]-(t:Tweet)-[:HAS_TAG]->(h2:Hashtag)
 WHERE id(h1) < id(h2)
 RETURN h1.tag, h2.tag, COUNT(*) AS num ORDER BY num DESC LIMIT 15
 
+// fraud tweets
+MATCH (t:Troll)-[:POSTED]->(tw:Tweet)
+WHERE tw.text CONTAINS "fraud"
+OPTIONAL MATCH p=(tw)-[:HAS_TAG|HAS_LINK|MENTIONS|IN_REPLY_TO]-(a)
+RETURN * LIMIT 50
+
 // Most 
 MATCH (t:Tweet)-[:HAS_LINK]->(u:URL)
 WITH t, replace(replace(u.expanded_url, "http://", '' ), "https://", '') AS url
@@ -37,10 +43,25 @@ CALL algo.pageRank(
   {graph:'cypher'});
   
 MATCH (n:Troll) RETURN n.screen_name, n.pagerank ORDER BY n.pagerank DESC LIMIT 25;
-  
-CALL algo.pageRank(
-  "MATCH (t:User) RETURN id(t) AS id", 
-  "MATCH (t: User)-[:POSTED]->(tw:Tweet)<-[:RETWEETED]-(tw2:Tweet)<-[:POSTED]-(t2: User) RETURN id(t2) AS source, id(t) AS target",
-  {graph:'cypher'});
-  
-MATCH (n:User) RETURN n.screen_name, n.pagerank ORDER BY n.pagerank DESC LIMIT 25; 
+
+MATCH (t:Troll) WHERE EXISTS(t.pagerank)
+WITH t ORDER BY t.pagerank LIMIT 25
+MATCH (t)-[:POSTED]->(tw:Tweet)-[:HAS_TAG]-(ht:Hashtag)
+RETURN ht.tag, COUNT(tw) AS num ORDER BY num DESC LIMIT 25
+
+// label propagation
+CALL algo.labelPropagation("MATCH (t:Troll) RETURN id(t) AS id","MATCH (r1:Troll)-[:POSTED]->(t:Tweet)<-[:RETWEETED]-(:Tweet)<-[:POSTED]-(r2:Troll) RETURN id(r2) AS source, id(r1) AS target, COUNT(t) AS weight","OUTGOING",   
+    {graph:'cypher', write: true, iterations: 200})
+
+MATCH (t:Troll) WHERE EXISTS(t.partition)
+RETURN COLLECT(t.screen_name) AS members, t.partition AS community
+ORDER BY SIZE(members) DESC LIMIT 10
+
+MATCH (t:Troll) WHERE EXISTS(t.partition)
+WITH COLLECT(t) AS members, t.partition AS community
+ORDER BY SIZE(members) DESC LIMIT 10
+UNWIND members AS t
+MATCH (t)-[:POSTED]->(tw:Tweet)-[:HAS_TAG]->(ht:Hashtag)
+WITH community, ht.tag AS tag, COUNT(tw) AS num ORDER BY num DESC
+RETURN community, COLLECT(tag)[..10] AS toptags
+LIMIT 10
